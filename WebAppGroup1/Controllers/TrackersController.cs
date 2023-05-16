@@ -164,5 +164,7 @@ namespace WebAppGroup1.Controllers
         {
           return (_context.TrackerEntries?.Any(e => e.Id == id)).GetValueOrDefault();
         }
-    }
+
+		//UpdateTrackerComplete
+	}
 }
