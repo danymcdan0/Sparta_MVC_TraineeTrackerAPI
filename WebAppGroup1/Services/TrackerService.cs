@@ -103,7 +103,7 @@ namespace WebAppGroup1.Services
             return response;
         }
 
-        public async Task<ServiceResponse<TrackerDetailsVM>> GetDetailsAsync(Spartan? spartan, int? id)
+        public async Task<ServiceResponse<TrackerDetailsVM>> GetDetailsAsync(Spartan? spartan, int? id, string role = "Trainee")
         {
             var response = new ServiceResponse<TrackerDetailsVM>();
             if (id == null || _context.TrackerEntries == null)
@@ -173,7 +173,7 @@ namespace WebAppGroup1.Services
             return await _context.TrackerEntries.Where(td => td.Id == id).Select(td => td.SpartanId).FirstAsync();
         }
 
-        public async Task<ServiceResponse<IEnumerable<TrackerVM>>> GetTrackerEntriesAsync(Spartan? spartan)
+        public async Task<ServiceResponse<IEnumerable<TrackerVM>>> GetTrackerEntriesAsync(Spartan? spartan, string role = "Trainee")
         {
             var response = new ServiceResponse<IEnumerable<TrackerVM>>();
             if (spartan == null)
@@ -189,23 +189,23 @@ namespace WebAppGroup1.Services
                 return response;
             }
 
-            //var toDoItems = await _context.ToDoItems.Where(td => td.SpartanId == spartan.Id).ToListAsync();
+            var toDoItems = await _context.TrackerEntries.Where(td => td.SpartanId == spartan.Id).ToListAsync();
             List<Tracker> trackers = new List<Tracker>();
 
-            /*            if (role == "Trainee")
-                        {
-                            // if the role is trainee
-                            // get the todo itemers
-                            // where the SpartanId of that todo item = the Id of the spartan
-                            trackers = await _context.TrackerEntries.Where(td => td.SpartanId == spartan.Id).ToListAsync();
-                        }
-                        if (role == "Trainer")
-                        {
-                            // Trainer can see all the to dos!!
-                            trackers = await _context.TrackerEntries.ToListAsync();
-                        }*/
-
-            /*if (string.IsNullOrEmpty(filter))
+            if (role == "Trainee")
+            {
+                // if the role is trainee
+                // get the todo itemers
+                // where the SpartanId of that todo item = the Id of the spartan
+                trackers = await _context.TrackerEntries.Where(td => td.SpartanId == spartan.Id).ToListAsync();
+            }
+            if (role == "Trainer")
+            {
+                // Trainer can see all the to dos!!
+                trackers = await _context.TrackerEntries.ToListAsync();
+            }
+/*
+            if (string.IsNullOrEmpty(filter))
             {
                 response.Data = toDoItems.Select(td => _mapper.Map<ToDoVM>(td));
                 return response;
@@ -213,7 +213,7 @@ namespace WebAppGroup1.Services
 
             trackers = await _context.TrackerEntries.Where(td => td.SpartanId == spartan.Id).ToListAsync();
             response.Data = trackers
-                /*.Where(td =>
+/*                .Where(td =>
                     td.Title.Contains(filter!, StringComparison.OrdinalIgnoreCase) ||
                     (td.Description?.Contains(filter!, StringComparison.OrdinalIgnoreCase) ?? false))*/
                 .Select(t => _mapper.Map<TrackerVM>(t));
@@ -243,7 +243,7 @@ namespace WebAppGroup1.Services
             return (_context.TrackerEntries?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
-        public async Task<ServiceResponse<TrackerVM>> UpdateTrackerEntriesCompleteAsync(Spartan? spartan, int id, MarkCompleteVM markCompleteVM)
+        public async Task<ServiceResponse<TrackerVM>> UpdateTrackerEntriesCompleteAsync(Spartan? spartan, int id, MarkCompleteVM markCompleteVM, string role = "Trainee")
         {
             var response = new ServiceResponse<TrackerVM>();
             if (spartan == null)
@@ -258,6 +258,12 @@ namespace WebAppGroup1.Services
                 response.Message = "Model error";
                 return response;
             }
+            if (role != "Trainee")
+            {
+				response.Success = true;
+				return response;
+			}
+
             var trackerToDo = await _context.TrackerEntries.FindAsync(id);
 
             if (trackerToDo == null)

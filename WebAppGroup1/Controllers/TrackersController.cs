@@ -13,7 +13,7 @@ using WebAppGroup1.Services;
 
 namespace WebAppGroup1.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class TrackersController : Controller
     {
         private readonly ITrackerService _service;
@@ -23,29 +23,29 @@ namespace WebAppGroup1.Controllers
             _service = service;
         }
 
-        //[Authorize(Roles = "Trainee, Trainer")]
+        [Authorize(Roles = "Trainee, Trainer")]
         // GET: Trackers
         public async Task<IActionResult> Index()
         {
             var user = await _service.GetUserAsync(HttpContext);
-            var response = await _service.GetTrackerEntriesAsync(user.Data);
+            var response = await _service.GetTrackerEntriesAsync(user.Data, _service.GetRole(HttpContext));
 
             return response.Success ? View(response.Data) : Problem(response.Message);
         }
 
-        //[Authorize(Roles = "Trainee, Trainer")]
+        [Authorize(Roles = "Trainee, Trainer")]
         // GET: Trackers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
 
             var currentUser = await _service.GetUserAsync(HttpContext);
-            var response = await _service.GetDetailsAsync(currentUser.Data, id);
+            var response = await _service.GetDetailsAsync(currentUser.Data, id, _service.GetRole(HttpContext));
             return response.Success? View(response.Data) : Problem(response.Message);
 
         }
 
         // GET: Trackers/Create
-        //[Authorize(Roles = "Trainee")]
+        [Authorize(Roles = "Trainee")]
 
         public IActionResult Create()
         {
@@ -54,7 +54,7 @@ namespace WebAppGroup1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Trainee")]
+        [Authorize(Roles = "Trainee")]
 
         public async Task<IActionResult> Create(TrackerCreateVM trackerCreateVM)
         {
@@ -67,7 +67,7 @@ namespace WebAppGroup1.Controllers
         // GET: Trackers/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Trainee")]
+        [Authorize(Roles = "Trainee")]
         public async Task<IActionResult> Edit(int id, TrackerEditVM trackerEditVM)
         {
             var currentUser = await _service.GetUserAsync(HttpContext);
@@ -79,7 +79,7 @@ namespace WebAppGroup1.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpGet]
-        //[Authorize(Roles = "Trainee, Trainer")]
+        [Authorize(Roles = "Trainee")]
 
         public async Task<IActionResult> Edit(int? id)
         {
@@ -91,7 +91,7 @@ namespace WebAppGroup1.Controllers
         // GET: Trackers/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Trainee, Trainer")]
+        [Authorize(Roles = "Trainee")]
 
         public async Task<IActionResult> Delete(int? id)
         {
@@ -105,12 +105,12 @@ namespace WebAppGroup1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Trainee")]
+        [Authorize(Roles = "Trainer")]
 
-        public async Task<IActionResult> UpdateTodoComplete(int id, MarkCompleteVM markCompleteVM)
+        public async Task<IActionResult> UpdateTraineeTrackerComplete(int id, MarkCompleteVM markCompleteVM)
         {
             var currentUser = await _service.GetUserAsync(HttpContext);
-            var response = await _service.UpdateTrackerEntriesCompleteAsync(currentUser.Data, id, markCompleteVM);
+            var response = await _service.UpdateTrackerEntriesCompleteAsync(currentUser.Data, id, markCompleteVM, _service.GetRole(HttpContext));
             return response.Success ? RedirectToAction(nameof(Index)) : Problem(response.Message);
 
         }
