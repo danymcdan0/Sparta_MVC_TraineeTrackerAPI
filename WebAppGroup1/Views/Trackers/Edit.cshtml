@@ -1,4 +1,4 @@
-﻿@model WebAppGroup1.Models.Tracker
+﻿@model WebAppGroup1.Models.ViewModels.TrackerDetailsVM
 
 @{
     ViewData["Title"] = "Edit";
@@ -47,11 +47,6 @@
                 <label asp-for="SoftSkill" class="control-label"></label>
                 <input asp-for="SoftSkill" class="form-control" />
                 <span asp-validation-for="SoftSkill" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Complete" /> @Html.DisplayNameFor(model => model.Complete)
-                </label>
             </div>
             <div class="form-group">
                 <label asp-for="SpartanId" class="control-label"></label>

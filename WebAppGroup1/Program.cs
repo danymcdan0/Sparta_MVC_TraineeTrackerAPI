@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebAppGroup1.Data;
 using WebAppGroup1.Models;
+using WebAppGroup1.Services;
 
 namespace WebAppGroup1
 {
@@ -18,9 +19,11 @@ namespace WebAppGroup1
 			builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 			builder.Services.AddDefaultIdentity<Spartan>(options => options.SignIn.RequireConfirmedAccount = false)
-				//Add roles later
+				.AddRoles<IdentityRole>()
 				.AddEntityFrameworkStores<SpartaTrackerContext>();
 			builder.Services.AddControllersWithViews();
+
+			//builder.Services.AddScoped<ITrackerService, TrackerService>();
 
 			builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
@@ -42,6 +45,8 @@ namespace WebAppGroup1
 			app.UseStaticFiles();
 
 			app.UseRouting();
+
+			app.UseAuthentication();
 
 			app.UseAuthorization();
 
