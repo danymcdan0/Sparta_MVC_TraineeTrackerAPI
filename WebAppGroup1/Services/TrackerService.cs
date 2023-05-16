@@ -189,7 +189,8 @@ namespace WebAppGroup1.Services
                 return response;
             }
 
-            var toDoItems = await _context.TrackerEntries.Where(td => td.SpartanId == spartan.Id).ToListAsync();
+            //var toDoItems = await _context.TrackerEntries.Where(td => td.SpartanId == spartan.Id).ToListAsync();
+
             List<Tracker> trackers = new List<Tracker>();
 
             if (role == "Trainee")
@@ -211,7 +212,7 @@ namespace WebAppGroup1.Services
                 return response;
             };*/
 
-            trackers = await _context.TrackerEntries.Where(td => td.SpartanId == spartan.Id).ToListAsync();
+            //trackers = await _context.TrackerEntries.Where(td => td.SpartanId == spartan.Id).ToListAsync();
             response.Data = trackers
 /*                .Where(td =>
                     td.Title.Contains(filter!, StringComparison.OrdinalIgnoreCase) ||
