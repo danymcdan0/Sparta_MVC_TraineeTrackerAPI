@@ -76,10 +76,10 @@ namespace WebAppGroup1.Services
             return response;
         }
 
-        public async Task<ServiceResponse<TrackerDetailsVM>> EditTrackerEntriesAsync(Spartan? spartan, int? id, TrackerDetailsVM trackerDetailsVM)
+        public async Task<ServiceResponse<TrackerEditVM>> EditTrackerEntriesAsync(Spartan? spartan, int? id, TrackerEditVM trackerEditVM)
         {
 
-            var response = new ServiceResponse<TrackerDetailsVM>();
+            var response = new ServiceResponse<TrackerEditVM>();
 
             if (spartan == null)
             {
@@ -89,14 +89,14 @@ namespace WebAppGroup1.Services
             }
 
             var spartanOwnerId = await GetSpartanOwnerAsync(id);
-            if (id != trackerDetailsVM.Id)
+            if (id != trackerEditVM.Id)
             {
                 response.Message = "Error updating";
                 response.Success = false;
                 return response;
             }
 
-            var trackerToDo = _mapper.Map<Tracker>(trackerDetailsVM);
+            var trackerToDo = _mapper.Map<Tracker>(trackerEditVM);
             _context.Update(trackerToDo);
             trackerToDo.SpartanId = spartan.Id;
             await _context.SaveChangesAsync();
@@ -133,6 +133,36 @@ namespace WebAppGroup1.Services
 
         }
 
+        public async Task<ServiceResponse<TrackerEditVM>> GetEditDetailsAsync(Spartan? spartan, int? id)
+        {
+            var response = new ServiceResponse<TrackerEditVM>();
+            if (id == null || _context.TrackerEntries == null)
+            {
+                response.Success = false;
+                return response;
+            }
+
+            if (spartan == null)
+            {
+                response.Success = false;
+                response.Message = "No user found";
+                return response;
+            }
+
+            var trackerToDo = await _context.TrackerEntries
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (trackerToDo == null || (trackerToDo.SpartanId != spartan.Id))
+            {
+                response.Success = false;
+                return response;
+            }
+
+            response.Data = _mapper.Map<TrackerEditVM>(trackerToDo);
+            return response;
+
+        }
+
         public string GetRole(HttpContext httpContext)
         {
             return httpContext.User.IsInRole("Trainee") ? "Trainee" : "Trainer";
@@ -162,18 +192,18 @@ namespace WebAppGroup1.Services
             //var toDoItems = await _context.ToDoItems.Where(td => td.SpartanId == spartan.Id).ToListAsync();
             List<Tracker> trackers = new List<Tracker>();
 
-/*            if (role == "Trainee")
-            {
-                // if the role is trainee
-                // get the todo itemers
-                // where the SpartanId of that todo item = the Id of the spartan
-                trackers = await _context.TrackerEntries.Where(td => td.SpartanId == spartan.Id).ToListAsync();
-            }
-            if (role == "Trainer")
-            {
-                // Trainer can see all the to dos!!
-                trackers = await _context.TrackerEntries.ToListAsync();
-            }*/
+            /*            if (role == "Trainee")
+                        {
+                            // if the role is trainee
+                            // get the todo itemers
+                            // where the SpartanId of that todo item = the Id of the spartan
+                            trackers = await _context.TrackerEntries.Where(td => td.SpartanId == spartan.Id).ToListAsync();
+                        }
+                        if (role == "Trainer")
+                        {
+                            // Trainer can see all the to dos!!
+                            trackers = await _context.TrackerEntries.ToListAsync();
+                        }*/
 
             /*if (string.IsNullOrEmpty(filter))
             {
@@ -181,6 +211,7 @@ namespace WebAppGroup1.Services
                 return response;
             };*/
 
+            trackers = await _context.TrackerEntries.Where(td => td.SpartanId == spartan.Id).ToListAsync();
             response.Data = trackers
                 /*.Where(td =>
                     td.Title.Contains(filter!, StringComparison.OrdinalIgnoreCase) ||

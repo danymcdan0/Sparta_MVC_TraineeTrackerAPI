@@ -1,4 +1,4 @@
-﻿@model WebAppGroup1.Models.ViewModels.TrackerDetailsVM
+﻿@model WebAppGroup1.Models.ViewModels.TrackerEditVM
 
 @{
     ViewData["Title"] = "Edit";
@@ -47,11 +47,6 @@
                 <label asp-for="SoftSkill" class="control-label"></label>
                 <input asp-for="SoftSkill" class="form-control" />
                 <span asp-validation-for="SoftSkill" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SpartanId" class="control-label"></label>
-                <select asp-for="SpartanId" class="form-control" asp-items="ViewBag.SpartanId"></select>
-                <span asp-validation-for="SpartanId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

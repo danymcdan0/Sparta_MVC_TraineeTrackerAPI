@@ -23,7 +23,7 @@ namespace WebAppGroup1
 				.AddEntityFrameworkStores<SpartaTrackerContext>();
 			builder.Services.AddControllersWithViews();
 
-			//builder.Services.AddScoped<ITrackerService, TrackerService>();
+			builder.Services.AddScoped<ITrackerService, TrackerService>();
 
 			builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
