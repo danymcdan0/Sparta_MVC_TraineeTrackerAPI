@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,43 +11,37 @@ using WebAppGroup1.Models;
 
 namespace WebAppGroup1.Controllers
 {
+    [Authorize]
     public class TrackersController : Controller
     {
-        private readonly SpartaTrackerContext _context;
+        private readonly TrackerService _service;
 
-        public TrackersController(SpartaTrackerContext context)
+        public TrackersController(TrackerService service)
         {
-            _context = context;
+            _service = service;
         }
 
         // GET: Trackers
         public async Task<IActionResult> Index()
         {
-            var spartaTrackerContext = _context.TrackerEntries.Include(t => t.Spartan);
-            return View(await spartaTrackerContext.ToListAsync());
+            var user = await _service.GetUserAsync(HttpContext);
+            var response = await _service.GetTrackerAsync(user.Data, _service.GetRole(HttpContext));
+
+            return response.Success ? View(response.Data) : Problem(response.Message);
         }
 
         // GET: Trackers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.TrackerEntries == null)
-            {
-                return NotFound();
-            }
 
-            var tracker = await _context.TrackerEntries
-                .Include(t => t.Spartan)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (tracker == null)
-            {
-                return NotFound();
-            }
+            var currentUser = await _service.GetUserAsync(HttpContext);
+            var response = await _service.GetDetailsAsync(currentUser.Data, id, _service.GetRole(HttpContext));
+            return response.Success? View(response.Data) : Problem(response.Message);
 
-            return View(tracker);
         }
 
-        // GET: Trackers/Create
-        public IActionResult Create()
+    // GET: Trackers/Create
+    public IActionResult Create()
         {
             ViewData["SpartanId"] = new SelectList(_context.Spartans, "Id", "Id");
             return View();
