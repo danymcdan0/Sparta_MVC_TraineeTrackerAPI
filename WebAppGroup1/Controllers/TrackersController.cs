@@ -2,169 +2,123 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebAppGroup1.Data;
 using WebAppGroup1.Models;
+using WebAppGroup1.Models.ViewModels;
 
 namespace WebAppGroup1.Controllers
 {
+    [Authorize]
     public class TrackersController : Controller
     {
-        private readonly SpartaTrackerContext _context;
+        private readonly TrackerService _service;
 
-        public TrackersController(SpartaTrackerContext context)
+        public TrackersController(TrackerService service)
         {
-            _context = context;
+            _service = service;
         }
 
+        [Authorize(Roles = "Trainee, Trainer")]
         // GET: Trackers
         public async Task<IActionResult> Index()
         {
-            var spartaTrackerContext = _context.TrackerEntries.Include(t => t.Spartan);
-            return View(await spartaTrackerContext.ToListAsync());
+            var user = await _service.GetUserAsync(HttpContext);
+            var response = await _service.GetTrackerAsync(user.Data, _service.GetRole(HttpContext));
+
+            return response.Success ? View(response.Data) : Problem(response.Message);
         }
 
+        [Authorize(Roles = "Trainee, Trainer")]
         // GET: Trackers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.TrackerEntries == null)
-            {
-                return NotFound();
-            }
 
-            var tracker = await _context.TrackerEntries
-                .Include(t => t.Spartan)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (tracker == null)
-            {
-                return NotFound();
-            }
+            var currentUser = await _service.GetUserAsync(HttpContext);
+            var response = await _service.GetDetailsAsync(currentUser.Data, id, _service.GetRole(HttpContext));
+            return response.Success? View(response.Data) : Problem(response.Message);
 
-            return View(tracker);
         }
 
         // GET: Trackers/Create
+        [Authorize(Roles = "Trainee")]
+
         public IActionResult Create()
         {
-            ViewData["SpartanId"] = new SelectList(_context.Spartans, "Id", "Id");
             return View();
         }
 
-        // POST: Trackers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Week,Stop,Start,Continue,Comments,TechnicalSkill,SoftSkill,Complete,SpartanId")] Tracker tracker)
+        [Authorize(Roles = "Trainee")]
+
+        public async Task<IActionResult> Create(TrackerCreateVM trackerCreateVM)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(tracker);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["SpartanId"] = new SelectList(_context.Spartans, "Id", "Id", tracker.SpartanId);
-            return View(tracker);
+
+            var currentUser = await _service.GetUserAsync(HttpContext);
+            var response = await _service.CreateToDoAsync(currentUser.Data, trackerCreateVM);
+            return response.Success ? RedirectToAction(nameof(Index)) : View(trackerCreateVM);
         }
 
         // GET: Trackers/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Trainee")]
+        public async Task<IActionResult> Edit(int id, TrackerDetailsVM trackerDetailsVM)
         {
-            if (id == null || _context.TrackerEntries == null)
-            {
-                return NotFound();
-            }
-
-            var tracker = await _context.TrackerEntries.FindAsync(id);
-            if (tracker == null)
-            {
-                return NotFound();
-            }
-            ViewData["SpartanId"] = new SelectList(_context.Spartans, "Id", "Id", tracker.SpartanId);
-            return View(tracker);
+            var currentUser = await _service.GetUserAsync(HttpContext);
+            var response = await _service.EditToDoAsync(currentUser.Data, id, trackerDetailsVM);
+            return response.Success ? RedirectToAction(nameof(Index)) : Problem(response.Message);
         }
 
         // POST: Trackers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Week,Stop,Start,Continue,Comments,TechnicalSkill,SoftSkill,Complete,SpartanId")] Tracker tracker)
-        {
-            if (id != tracker.Id)
-            {
-                return NotFound();
-            }
+        [HttpGet]
+        [Authorize(Roles = "Trainee, Trainer")]
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(tracker);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TrackerExists(tracker.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["SpartanId"] = new SelectList(_context.Spartans, "Id", "Id", tracker.SpartanId);
-            return View(tracker);
+        public async Task<IActionResult> Edit(int? id)
+        {
+            var currentUser = await _service.GetUserAsync(HttpContext);
+            var response = await _service.GetDetailsAsync(currentUser.Data, id, _service.GetRole(HttpContext));
+            return response.Success ? View(response.Data) : NotFound();
         }
 
         // GET: Trackers/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Trainee, Trainer")]
+
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.TrackerEntries == null)
-            {
-                return NotFound();
-            }
 
-            var tracker = await _context.TrackerEntries
-                .Include(t => t.Spartan)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (tracker == null)
-            {
-                return NotFound();
-            }
-
-            return View(tracker);
-        }
-
-        // POST: Trackers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.TrackerEntries == null)
-            {
-                return Problem("Entity set 'SpartaTrackerContext.TrackerEntries'  is null.");
-            }
-            var tracker = await _context.TrackerEntries.FindAsync(id);
-            if (tracker != null)
-            {
-                _context.TrackerEntries.Remove(tracker);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            var currentUser = await _service.GetUserAsync(HttpContext);
+            var response = await _service.DeleteToDoAsync(currentUser.Data, id);
+            return response.Success ? RedirectToAction(nameof(Index)) : Problem(response.Message);
         }
 
         private bool TrackerExists(int id)
         {
-          return (_context.TrackerEntries?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_service.TrackerEntries?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
-		//UpdateTrackerComplete
-	}
+        //UpdateTrackerComplete
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Trainee")]
+
+        public async Task<IActionResult> UpdateTodoComplete(int id, MarkCompleteVM markCompleteVM)
+        {
+            var currentUser = await _service.GetUserAsync(HttpContext);
+            var response = await _service.UpdateToDoCompleteAsync(currentUser.Data, id, markCompleteVM);
+            return response.Success ? RedirectToAction(nameof(Index)) : Problem(response.Message);
+
+        }
+    }
+
+
 }
