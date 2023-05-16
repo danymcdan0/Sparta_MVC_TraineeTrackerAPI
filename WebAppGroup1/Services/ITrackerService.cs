@@ -8,7 +8,7 @@ namespace WebAppGroup1.Services
 		Task<ServiceResponse<IEnumerable<TrackerVM>>> GetTrackerEntriesAsync(Spartan? spartan);
 		Task<ServiceResponse<TrackerDetailsVM>> GetDetailsAsync(Spartan? spartan, int? id);
 		Task<ServiceResponse<TrackerCreateVM>> CreateTrackerEntriesAsync(Spartan? spartan, TrackerCreateVM trackerCreateVM);
-		Task<ServiceResponse<TrackerDetailsVM>> EditTrackerEntriesAsync(Spartan? spartan, int? id, TrackerVM trackerVM);
+		Task<ServiceResponse<TrackerDetailsVM>> EditTrackerEntriesAsync(Spartan? spartan, int? id, TrackerDetailsVM trackerDetailsVM);
 		Task<ServiceResponse<TrackerVM>> UpdateTrackerEntriesCompleteAsync(Spartan? spartan, int id, MarkCompleteVM markCompleteVM);
 		Task<ServiceResponse<TrackerVM>> DeleteTrackerEntriesAsync(Spartan? spartan, int? id);
 		Task<ServiceResponse<Spartan>> GetUserAsync(HttpContext httpContext);
