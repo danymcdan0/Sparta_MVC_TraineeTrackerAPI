@@ -24,24 +24,15 @@ public class Tests
 	}
 
 	[Test]
-	public void Index_WithSuccessfulServiceResponse_ReturnsTodoVMList()
+	public void Index_WithSuccessfulServiceResponse_ReturnsVMList()
 	{
 		// Arrange
 		var mockService = new Mock<ITrackerService>();
-
-
-
-
 		var spartanServiceResponse = Helper.GetSpartanServiceResponse();
-
-
 		mockService.Setup(s => s.GetUserAsync(It.IsAny<HttpContext>()).Result)
 				   .Returns(spartanServiceResponse);
-
 		mockService.Setup(s => s.GetTrackerEntriesAsync(spartanServiceResponse.Data, It.IsAny<string>(), It.IsAny<string>()))
 					.ReturnsAsync(Helper.GetToDoListServiceResponse());
-
-
 		mockService.Setup(s => s.GetRole(It.IsAny<HttpContext>()))
 					.Returns("Trainer");
 

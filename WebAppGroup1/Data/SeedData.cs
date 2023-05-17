@@ -166,7 +166,7 @@ namespace WebAppGroup1.Data
 	 Comments = "lorem",
 	 Owner = "Nali",
 	 SoftSkill = "Partially Skilled",
-     TechnicalSkill = "Partially Skilled"
+	 TechnicalSkill = "Partially Skilled"
  },
  new Tracker
  {
@@ -176,8 +176,8 @@ namespace WebAppGroup1.Data
 	 Comments = "ipsum",
 	 Spartan = idris,
 	 Owner = "Aidris",
-     SoftSkill = "Unskilled",
-     TechnicalSkill = "Partially Skilled"
+	 SoftSkill = "Unskilled",
+	 TechnicalSkill = "Partially Skilled"
  },
  new Tracker
  {
@@ -186,8 +186,8 @@ namespace WebAppGroup1.Data
 	 Complete = true,
 	 Spartan = matt,
 	 Owner = "Mhandley",
-     SoftSkill = "Low Skilled",
-     TechnicalSkill = "Partially Skilled"
+	 SoftSkill = "Low Skilled",
+	 TechnicalSkill = "Partially Skilled"
  },
  new Tracker
  {
@@ -197,8 +197,8 @@ namespace WebAppGroup1.Data
 	 Spartan = daniel,
 	 Comments = "dolor",
 	 Owner = "Dmanu",
-     SoftSkill = "Skilled",
-     TechnicalSkill = "Skilled"
+	 SoftSkill = "Skilled",
+	 TechnicalSkill = "Skilled"
 
 
 
@@ -219,13 +219,13 @@ namespace WebAppGroup1.Data
   },
  new Tracker
  {
-	 Week = 1,
-	 Stop = "Complete timecard for this week",
-	 Complete = true,
-	 Spartan = danyal,
-	 Owner = "Dsaleh",
-     SoftSkill = "Partially Skilled",
-     TechnicalSkill = "Partially Skilled"
+	Week = 1,
+	Stop = "Complete timecard for this week",
+	Complete = true,
+	Spartan = danyal,
+	Owner = "Dsaleh",
+	SoftSkill = "Partially Skilled",
+	TechnicalSkill = "Partially Skilled"
  }
  );
 			context.SaveChanges();
