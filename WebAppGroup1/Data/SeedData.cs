@@ -103,7 +103,7 @@ namespace WebAppGroup1.Data
 	 Start = "Complete the weekly survey",
 	 Complete = false,
 	 Spartan = nish,
-	 Owner = "nish"
+	 Owner = "Nish"
  },
  new Tracker
  {
@@ -111,7 +111,7 @@ namespace WebAppGroup1.Data
 	 Stop = "Complete timecard for this week",
 	 Complete = true,
 	 Spartan = nish,
-	 Owner = "nish"
+	 Owner = "Nish"
  },
  new Tracker
  {
@@ -119,7 +119,7 @@ namespace WebAppGroup1.Data
 	 Stop = "Complete timecard for this week",
 	 Complete = true,
 	 Spartan = nish,
-	 Owner = "nish"
+	 Owner = "Nish"
  },
  new Tracker
  {
@@ -127,7 +127,7 @@ namespace WebAppGroup1.Data
 	 Stop = "Complete timecard for this week",
 	 Complete = true,
 	 Spartan = nish,
-	 Owner = "nish"
+	 Owner = "Nish"
 
 
 
@@ -138,7 +138,7 @@ namespace WebAppGroup1.Data
 	 Stop = "Complete timecard for this week",
 	 Complete = true,
 	 Spartan = peter,
-	 Owner = "peter"
+	 Owner = "Peter"
  }
  );
 			context.SaveChanges();

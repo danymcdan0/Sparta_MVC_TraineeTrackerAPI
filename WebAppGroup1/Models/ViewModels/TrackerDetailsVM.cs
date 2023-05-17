@@ -20,5 +20,6 @@ namespace WebAppGroup1.Models.ViewModels
 		public int SoftSkill { get; set; }
 		public Spartan? Spartan { get; set; }
 		public string SpartanId { get; set; } = null!;
+		public string? Owner { get; set; }
 	}
 }

@@ -117,6 +117,7 @@ namespace WebAppGroup1.Areas.Identity.Pages.Account
                 string userName = Input.Email;
                 int index = userName.IndexOf('@');
                 userName = userName.Remove(index);
+                userName = userName[0].ToString().ToUpper() + userName.Substring(1);
 
                 await _userManager.AddToRoleAsync(user, "Trainee");                
                 await _userStore.SetUserNameAsync(user, userName, CancellationToken.None);

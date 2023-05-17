@@ -46,3 +46,9 @@ button.accept-policy {
   white-space: nowrap;
   line-height: 60px;
 }
+
+.center {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
