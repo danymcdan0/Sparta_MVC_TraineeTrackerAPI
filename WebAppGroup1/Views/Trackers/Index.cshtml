@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebAppGroup1.Models.ViewModels.TrackerVM>
+﻿@model IEnumerable<WebAppGroup1.Models.ViewModels.TrackerVM> 
 
 @{
 	ViewData["Title"] = "Index";
@@ -41,7 +41,7 @@
 					@Html.DisplayFor(modelItem => item.SoftSkill)
 				</td>
 					<td>
-					<form asp-action="UpdateTrackerComplete" asp-route-id="@item.Id">
+						<form asp-action="UpdateTraineeTrackerComplete" asp-route-id="@item.Id">
 						@Html.CheckBox("Complete", item.Complete, new {onChange="this.form.submit()"})
 					</form>
 					</td>

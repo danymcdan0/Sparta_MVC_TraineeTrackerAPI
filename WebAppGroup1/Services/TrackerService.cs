@@ -189,8 +189,6 @@ namespace WebAppGroup1.Services
                 return response;
             }
 
-            //var toDoItems = await _context.TrackerEntries.Where(td => td.SpartanId == spartan.Id).ToListAsync();
-
             List<Tracker> trackers = new List<Tracker>();
 
             if (role == "Trainee")
@@ -259,7 +257,7 @@ namespace WebAppGroup1.Services
                 response.Message = "Model error";
                 return response;
             }
-            if (role != "Trainee")
+            if (role == "Trainee")
             {
 				response.Success = true;
 				return response;
@@ -273,11 +271,7 @@ namespace WebAppGroup1.Services
                 response.Message = "Cannot find tracker entry";
                 return response;
             }
-            if (trackerToDo == null || trackerToDo.SpartanId != spartan.Id)
-            {
-                response.Success = false;
-                return response;
-            }
+
             trackerToDo.Complete = markCompleteVM.Complete;
 
             await _context.SaveChangesAsync();
