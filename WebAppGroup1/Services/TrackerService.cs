@@ -103,7 +103,7 @@ namespace WebAppGroup1.Services
             return response;
         }
 
-        public async Task<ServiceResponse<TrackerDetailsVM>> GetDetailsAsync(Spartan? spartan, int? id, string role = "Trainee")
+        public async Task<ServiceResponse<TrackerDetailsVM>> GetDetailsAsync(Spartan? spartan, int? id, string role)
         {
             var response = new ServiceResponse<TrackerDetailsVM>();
             if (id == null || _context.TrackerEntries == null)
@@ -121,6 +121,12 @@ namespace WebAppGroup1.Services
 
             var trackerToDo = await _context.TrackerEntries
                 .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (role == "Trainer")
+            {
+                response.Data = _mapper.Map<TrackerDetailsVM>(trackerToDo);
+                return response;
+			}
 
             if (trackerToDo == null || (trackerToDo.SpartanId != spartan.Id))
             {
@@ -173,7 +179,7 @@ namespace WebAppGroup1.Services
             return await _context.TrackerEntries.Where(td => td.Id == id).Select(td => td.SpartanId).FirstAsync();
         }
 
-        public async Task<ServiceResponse<IEnumerable<TrackerVM>>> GetTrackerEntriesAsync(Spartan? spartan, string role = "Trainee")
+        public async Task<ServiceResponse<IEnumerable<TrackerVM>>> GetTrackerEntriesAsync(Spartan? spartan, string role)
         {
             var response = new ServiceResponse<IEnumerable<TrackerVM>>();
             if (spartan == null)
