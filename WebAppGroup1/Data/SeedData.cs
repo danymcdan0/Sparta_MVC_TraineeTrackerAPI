@@ -46,7 +46,7 @@ namespace WebAppGroup1.Data
 			{
 				UserName = "Phil",
 				Email = "Phil@spartaglobal.com",
-				EmailConfirmed = true
+				EmailConfirmed = true,
 			};
 			var nish = new Spartan
 			{
@@ -103,7 +103,9 @@ namespace WebAppGroup1.Data
 	 Start = "Complete the weekly survey",
 	 Complete = false,
 	 Spartan = nish,
-	 Owner = "Nish"
+	 Owner = "Nish",
+	 SoftSkill = "Partially Skilled",
+     TechnicalSkill = "Partially Skilled"
  },
  new Tracker
  {
@@ -111,7 +113,9 @@ namespace WebAppGroup1.Data
 	 Stop = "Complete timecard for this week",
 	 Complete = true,
 	 Spartan = nish,
-	 Owner = "Nish"
+	 Owner = "Nish",
+     SoftSkill = "Unskilled",
+     TechnicalSkill = "Partially Skilled"
  },
  new Tracker
  {
@@ -119,7 +123,9 @@ namespace WebAppGroup1.Data
 	 Stop = "Complete timecard for this week",
 	 Complete = true,
 	 Spartan = nish,
-	 Owner = "Nish"
+	 Owner = "Nish",
+     SoftSkill = "Low Skilled",
+     TechnicalSkill = "Partially Skilled"
  },
  new Tracker
  {
@@ -127,7 +133,9 @@ namespace WebAppGroup1.Data
 	 Stop = "Complete timecard for this week",
 	 Complete = true,
 	 Spartan = nish,
-	 Owner = "Nish"
+	 Owner = "Nish",
+     SoftSkill = "Skilled",
+     TechnicalSkill = "Skilled"
 
 
 
@@ -138,7 +146,9 @@ namespace WebAppGroup1.Data
 	 Stop = "Complete timecard for this week",
 	 Complete = true,
 	 Spartan = peter,
-	 Owner = "Peter"
+	 Owner = "Peter",
+     SoftSkill = "Partially Skilled",
+     TechnicalSkill = "Partially Skilled"
  }
  );
 			context.SaveChanges();

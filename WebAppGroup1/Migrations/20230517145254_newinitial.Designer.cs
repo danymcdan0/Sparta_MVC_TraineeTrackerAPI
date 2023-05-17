@@ -12,8 +12,8 @@ using WebAppGroup1.Data;
 namespace WebAppGroup1.Migrations
 {
     [DbContext(typeof(SpartaTrackerContext))]
-    [Migration("20230516111436_Second")]
-    partial class Second
+    [Migration("20230517145254_newinitial")]
+    partial class newinitial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -252,9 +252,12 @@ namespace WebAppGroup1.Migrations
                     b.Property<string>("Continue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SoftSkill")
-                        .HasMaxLength(1)
-                        .HasColumnType("int");
+                    b.Property<string>("Owner")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SoftSkill")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SpartanId")
                         .IsRequired()
@@ -266,9 +269,9 @@ namespace WebAppGroup1.Migrations
                     b.Property<string>("Stop")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TechnicalSkill")
-                        .HasMaxLength(1)
-                        .HasColumnType("int");
+                    b.Property<string>("TechnicalSkill")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Week")
                         .HasMaxLength(1)

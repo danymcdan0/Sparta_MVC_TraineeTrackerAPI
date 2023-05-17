@@ -38,7 +38,7 @@ public class Tests
 		mockService.Setup(s => s.GetUserAsync(It.IsAny<HttpContext>()).Result)
 				   .Returns(spartanServiceResponse);
 
-		mockService.Setup(s => s.GetTrackerEntriesAsync(spartanServiceResponse.Data, It.IsAny<string>()))
+		mockService.Setup(s => s.GetTrackerEntriesAsync(spartanServiceResponse.Data, It.IsAny<string>(), It.IsAny<string>()))
 					.ReturnsAsync(Helper.GetToDoListServiceResponse());
 
 
@@ -68,7 +68,7 @@ public class Tests
 
 		var failedResponse = Helper.GetFailedServiceResponse<IEnumerable<TrackerVM>>("Fake problem message");
 
-		mockService.Setup(s => s.GetTrackerEntriesAsync(It.IsAny<Spartan>(), It.IsAny<string>()).Result)
+		mockService.Setup(s => s.GetTrackerEntriesAsync(It.IsAny<Spartan>(), It.IsAny<string>(), It.IsAny<string>()).Result)
 				   .Returns(failedResponse);
 		mockService.Setup(s => s.GetUserAsync(It.IsAny<HttpContext>()).Result)
 					.Returns(spartanServiceResponse);

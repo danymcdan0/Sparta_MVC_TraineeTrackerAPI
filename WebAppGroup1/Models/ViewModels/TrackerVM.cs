@@ -10,11 +10,11 @@ namespace WebAppGroup1.Models.ViewModels
         public int Id { get; set; }
 		public int Week { get; set; }
 
-		[Display(Name = "Technical Skill [1-4]")]
-		public int TechnicalSkill { get; set; }
+		[Display(Name = "Technical Skill")]
+		public string TechnicalSkill { get; set; } = null!;
 
-		[Display(Name = "Soft Skill [1-4]")]
-		public int SoftSkill { get; set; }
+		[Display(Name = "Soft Skill")]
+		public string SoftSkill { get; set; } = null!;
 
 		public bool Complete { get; set; }
 

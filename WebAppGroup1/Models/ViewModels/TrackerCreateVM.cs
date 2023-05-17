@@ -14,14 +14,12 @@ namespace WebAppGroup1.Models.ViewModels
 		public string? Comments { get; set; }
 
         [Required(ErrorMessage = "Technical Skill is required")]
-        [Display(Name = "Technical Skill [1-4]")]
-        [Range(1, 4)]
-        public int TechnicalSkill { get; set; }
+        [Display(Name = "Technical Skill")]
+        public string TechnicalSkill { get; set; } = null!;
 
         [Required(ErrorMessage = "Soft Skill is required")]
-        [Display(Name = "Soft Skill [1-4]")]
-        [Range(1, 4)]
-        public int SoftSkill { get; set; }
+        [Display(Name = "Soft Skill")]
+        public string SoftSkill { get; set; } = null!;
 
         [HiddenInput(DisplayValue = false)]
 		public string? Email { get; set; }

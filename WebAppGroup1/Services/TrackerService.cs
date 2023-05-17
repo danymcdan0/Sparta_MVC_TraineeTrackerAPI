@@ -98,6 +98,7 @@ namespace WebAppGroup1.Services
             }
 
             var trackerToDo = _mapper.Map<Tracker>(trackerEditVM);
+            trackerToDo.Owner = spartan.UserName;
             _context.Update(trackerToDo);
             trackerToDo.SpartanId = spartan.Id;
             await _context.SaveChangesAsync();
@@ -180,7 +181,7 @@ namespace WebAppGroup1.Services
             return await _context.TrackerEntries.Where(td => td.Id == id).Select(td => td.SpartanId).FirstAsync();
         }
 
-        public async Task<ServiceResponse<IEnumerable<TrackerVM>>> GetTrackerEntriesAsync(Spartan? spartan, string role)
+        public async Task<ServiceResponse<IEnumerable<TrackerVM>>> GetTrackerEntriesAsync(Spartan? spartan, string role, string filter)
         {
             var response = new ServiceResponse<IEnumerable<TrackerVM>>();
             if (spartan == null)
@@ -210,18 +211,18 @@ namespace WebAppGroup1.Services
                 // Trainer can see all the to dos!!
                 trackers = await _context.TrackerEntries.ToListAsync();
             }
-            /*
-                        if (string.IsNullOrEmpty(filter))
-                        {
-                            response.Data = toDoItems.Select(td => _mapper.Map<ToDoVM>(td));
-                            return response;
-                        };*/
 
-			//trackers = await _context.TrackerEntries.Where(td => td.SpartanId == spartan.Id).ToListAsync();
-			response.Data = trackers
-/*                .Where(td =>
-                    td.Title.Contains(filter!, StringComparison.OrdinalIgnoreCase) ||
-                    (td.Description?.Contains(filter!, StringComparison.OrdinalIgnoreCase) ?? false))*/
+            if (string.IsNullOrEmpty(filter))
+            {
+                response.Data = trackers.Select(td => _mapper.Map<TrackerVM>(td));
+                return response;
+            };
+
+            //trackers = await _context.TrackerEntries.Where(td => td.SpartanId == spartan.Id).ToListAsync();
+            response.Data = trackers
+                .Where(td =>
+                    td.Owner.Contains(filter!, StringComparison.OrdinalIgnoreCase) ||
+                    (td.Comments?.Contains(filter!, StringComparison.OrdinalIgnoreCase) ?? false))
                 .Select(t => _mapper.Map<TrackerVM>(t));
 
             

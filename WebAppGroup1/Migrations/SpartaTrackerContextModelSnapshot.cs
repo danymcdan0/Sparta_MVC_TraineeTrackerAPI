@@ -252,9 +252,9 @@ namespace WebAppGroup1.Migrations
                     b.Property<string>("Owner")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SoftSkill")
-                        .HasMaxLength(1)
-                        .HasColumnType("int");
+                    b.Property<string>("SoftSkill")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SpartanId")
                         .IsRequired()
@@ -266,9 +266,9 @@ namespace WebAppGroup1.Migrations
                     b.Property<string>("Stop")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TechnicalSkill")
-                        .HasMaxLength(1)
-                        .HasColumnType("int");
+                    b.Property<string>("TechnicalSkill")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Week")
                         .HasMaxLength(1)

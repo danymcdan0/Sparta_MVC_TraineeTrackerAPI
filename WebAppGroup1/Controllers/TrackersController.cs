@@ -25,10 +25,10 @@ namespace WebAppGroup1.Controllers
 
         [Authorize(Roles = "Trainee, Trainer")]
         // GET: Trackers
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string filter = null)
         {
             var user = await _service.GetUserAsync(HttpContext);
-            var response = await _service.GetTrackerEntriesAsync(user.Data, _service.GetRole(HttpContext));
+            var response = await _service.GetTrackerEntriesAsync(user.Data, _service.GetRole(HttpContext), filter);
 
             return response.Success ? View(response.Data) : Problem(response.Message);
         }
