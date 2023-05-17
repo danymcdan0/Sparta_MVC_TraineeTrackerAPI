@@ -1,4 +1,4 @@
-﻿@model WebAppGroup1.Models.Tracker
+﻿@model WebAppGroup1.Models.ViewModels.TrackerCreateVM
 
 @{
     ViewData["Title"] = "Create";
@@ -14,47 +14,57 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Week" class="control-label"></label>
-                <input asp-for="Week" class="form-control" />
+                <select asp-for="Week" name="Week" class="form-select">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                </select>
                 <span asp-validation-for="Week" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Stop" class="control-label"></label>
-                <input asp-for="Stop" class="form-control" />
+                <textarea asp-for="Stop" class="form-control" rounded-0" rows="10"></textarea>
                 <span asp-validation-for="Stop" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Start" class="control-label"></label>
-                <input asp-for="Start" class="form-control" />
+                <textarea asp-for="Start" class="form-control" rounded-0" rows="10"></textarea>
                 <span asp-validation-for="Start" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Continue" class="control-label"></label>
-                <input asp-for="Continue" class="form-control" />
+                <textarea asp-for="Continue" class="form-control" rounded-0" rows="10"></textarea>
                 <span asp-validation-for="Continue" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Comments" class="control-label"></label>
-                <input asp-for="Comments" class="form-control" />
+                <textarea asp-for="Comments" class="form-control" rounded-0" rows="10"></textarea>
                 <span asp-validation-for="Comments" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TechnicalSkill" class="control-label"></label>
-                <input asp-for="TechnicalSkill" class="form-control" />
+                <select asp-for="TechnicalSkill" name="TechnicalSkill" class="form-select">
+                    <option value="Skilled">Skilled</option>
+                    <option value="Partially Skilled">Partially Skilled</option>
+                    <option value="Low Skilled">Low Skilled</option>
+                    <option value="Unskilled">Unskilled</option>
+                </select>
                 <span asp-validation-for="TechnicalSkill" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SoftSkill" class="control-label"></label>
-                <input asp-for="SoftSkill" class="form-control" />
+                <select asp-for="SoftSkill" name="SoftSkill" class="form-select">
+                    <option value="Skilled">Skilled</option>
+                    <option value="Partially Skilled">Partially Skilled</option>
+                    <option value="Low Skilled">Low Skilled</option>
+                    <option value="Unskilled">Unskilled</option>
+                </select>
                 <span asp-validation-for="SoftSkill" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Complete" /> @Html.DisplayNameFor(model => model.Complete)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="SpartanId" class="control-label"></label>
-                <select asp-for="SpartanId" class ="form-control" asp-items="ViewBag.SpartanId"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

@@ -4,7 +4,6 @@ namespace WebAppGroup1.Models
 {
 	public class Spartan : IdentityUser
 	{
-        public List<Tracker>? Trackers { get; set; }
-
-    }
+		public List<Tracker>? Trackers { get; set; }
+	}
 }

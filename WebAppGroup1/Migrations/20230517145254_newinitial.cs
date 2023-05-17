@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebAppGroup1.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class newinitial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -168,9 +168,11 @@ namespace WebAppGroup1.Migrations
                     Start = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Continue = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Comments = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TechnicalSkill = table.Column<int>(type: "int", maxLength: 1, nullable: false),
-                    SoftSkill = table.Column<int>(type: "int", maxLength: 1, nullable: false),
-                    SpartanId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    TechnicalSkill = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SoftSkill = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Complete = table.Column<bool>(type: "bit", nullable: false),
+                    SpartanId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Owner = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

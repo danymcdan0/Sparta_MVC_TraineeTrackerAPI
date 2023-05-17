@@ -1,16 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebAppGroup1.Models
+namespace WebAppGroup1.Models.ViewModels
 {
-	public class Tracker
-	{
-		[Key]
-        public int Id { get; set; }
-
+    public class TrackerEditVM
+    {
         [Required(ErrorMessage = "Week is required")]
-        [MaxLength(1)]
+        [Range(1, 8)]
+        public int Id { get; set; }
         public int Week { get; set; }
         public string? Stop { get; set; }
         public string? Start { get; set; }
@@ -19,18 +16,14 @@ namespace WebAppGroup1.Models
 
         [Required(ErrorMessage = "Technical Skill is required")]
         [Display(Name = "Technical Skill")]
-        public string TechnicalSkill { get; set; } = null!;
+        public string TechnicalSkill { get; set; }
 
         [Required(ErrorMessage = "Soft Skill is required")]
         [Display(Name = "Soft Skill")]
-        public string SoftSkill { get; set; } = null!;
-        public bool Complete { get; set; } = false;
+        public string SoftSkill { get; set; }
         public Spartan? Spartan { get; set; }
 
-        [ValidateNever]
-        [ForeignKey("Spartan")]
-        public string SpartanId { get; set; } = null!;
-
-		public string? Owner { get; set; }
-	}
+        [HiddenInput(DisplayValue = false)]
+        public string Owner { get; set; }
+    }
 }
