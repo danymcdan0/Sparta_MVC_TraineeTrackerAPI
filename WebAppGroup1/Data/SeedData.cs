@@ -42,35 +42,76 @@ namespace WebAppGroup1.Data
 			.GetAwaiter()
 			.GetResult();
 
-			var phil = new Spartan
-			{
-				UserName = "Phil",
-				Email = "Phil@spartaglobal.com",
-				EmailConfirmed = true,
-			};
-			var nish = new Spartan
-			{
-				UserName = "Nish",
-				Email = "Nish@spartaglobal.com",
-				EmailConfirmed = true,
-			};
 			var peter = new Spartan
 			{
-				UserName = "Peter",
-				Email = "Peter@spartaglobal.com",
+				UserName = "Pbellaby",
+				Email = "PBellaby@spartaglobal.com",
+				EmailConfirmed = true,
+			};
+			var phil = new Spartan
+			{
+				UserName = "Pthomas",
+				Email = "PThomas@spartaglobal.com",
+				EmailConfirmed = true,
+			};
+			var danyal = new Spartan
+			{
+				UserName = "Dsaleh",
+				Email = "DSaleh@spartaglobal.com",
+				EmailConfirmed = true
+			};
+			var daniel = new Spartan
+			{
+				UserName = "Dmanu",
+				Email = "DManu@spartaglobal.com",
+				EmailConfirmed = true
+			};
+			var matt = new Spartan
+			{
+				UserName = "Mhandley",
+				Email = "MHandley@spartaglobal.com",
+				EmailConfirmed = true
+			};
+			var idris = new Spartan
+			{
+				UserName = "Aidris",
+				Email = "AIdris@spartaglobal.com",
+				EmailConfirmed = true
+			};
+			var nooreen = new Spartan
+			{
+				UserName = "Nali",
+				Email = "NAli@spartaglobal.com",
 				EmailConfirmed = true
 			};
 
+
 			userManager
- .CreateAsync(phil, "Password1!")
- .GetAwaiter()
- .GetResult();
+			 .CreateAsync(phil, "Password1!")
+			 .GetAwaiter()
+			 .GetResult();
 			userManager
-			.CreateAsync(nish, "Password1!")
+			.CreateAsync(peter, "Password1!")
 			.GetAwaiter()
 			.GetResult();
 			userManager
-			.CreateAsync(peter, "Password1!")
+			.CreateAsync(danyal, "Password1!")
+			.GetAwaiter()
+			.GetResult();
+			userManager
+			.CreateAsync(daniel, "Password1!")
+			.GetAwaiter()
+			.GetResult();
+			userManager
+			.CreateAsync(matt, "Password1!")
+			.GetAwaiter()
+			.GetResult();
+			userManager
+			.CreateAsync(idris, "Password1!")
+			.GetAwaiter()
+			.GetResult();
+			userManager
+			.CreateAsync(nooreen, "Password1!")
 			.GetAwaiter()
 			.GetResult();
 
@@ -78,20 +119,39 @@ namespace WebAppGroup1.Data
 {
 			 new IdentityUserRole<string>
 			 {
-			 UserId = userManager.GetUserIdAsync(phil).Result,
+			 UserId = userManager.GetUserIdAsync(peter).Result,
 			 RoleId = roleStore.GetRoleIdAsync(trainer).Result
 			 },
 			 new IdentityUserRole<string>
 			 {
-			 UserId = userManager.GetUserIdAsync(nish).Result,
+			 UserId = userManager.GetUserIdAsync(phil).Result,
 			 RoleId = roleStore.GetRoleIdAsync(trainee).Result
 			 },
-				 new IdentityUserRole<string>
-				 {
-			 UserId = userManager.GetUserIdAsync(peter).Result,
+			 new IdentityUserRole<string>
+			 {
+			 UserId = userManager.GetUserIdAsync(danyal).Result,
+			 RoleId = roleStore.GetRoleIdAsync(trainee).Result
+			 },
+			 new IdentityUserRole<string>
+			 {
+			 UserId = userManager.GetUserIdAsync(daniel).Result,
+			 RoleId = roleStore.GetRoleIdAsync(trainee).Result
+			 },
+			 new IdentityUserRole<string>
+			 {
+			 UserId = userManager.GetUserIdAsync(matt).Result,
+			 RoleId = roleStore.GetRoleIdAsync(trainee).Result
+			 },
+			 new IdentityUserRole<string>
+			 {
+			 UserId = userManager.GetUserIdAsync(idris).Result,
+			 RoleId = roleStore.GetRoleIdAsync(trainee).Result
+			 },
+			 new IdentityUserRole<string>
+			 {
+			 UserId = userManager.GetUserIdAsync(nooreen).Result,
 			 RoleId = roleStore.GetRoleIdAsync(trainee).Result
 			 }
-
 
 
 			 });
@@ -102,8 +162,9 @@ namespace WebAppGroup1.Data
 	 Week = 1,
 	 Start = "Complete the weekly survey",
 	 Complete = false,
-	 Spartan = nish,
-	 Owner = "Nish",
+	 Spartan = nooreen,
+	 Comments = "lorem",
+	 Owner = "Nali",
 	 SoftSkill = "Partially Skilled",
      TechnicalSkill = "Partially Skilled"
  },
@@ -112,8 +173,9 @@ namespace WebAppGroup1.Data
 	 Week = 2,
 	 Stop = "Complete timecard for this week",
 	 Complete = true,
-	 Spartan = nish,
-	 Owner = "Nish",
+	 Comments = "ipsum",
+	 Spartan = idris,
+	 Owner = "Aidris",
      SoftSkill = "Unskilled",
      TechnicalSkill = "Partially Skilled"
  },
@@ -122,8 +184,8 @@ namespace WebAppGroup1.Data
 	 Week = 3,
 	 Stop = "Complete timecard for this week",
 	 Complete = true,
-	 Spartan = nish,
-	 Owner = "Nish",
+	 Spartan = matt,
+	 Owner = "Mhandley",
      SoftSkill = "Low Skilled",
      TechnicalSkill = "Partially Skilled"
  },
@@ -132,21 +194,36 @@ namespace WebAppGroup1.Data
 	 Week = 4,
 	 Stop = "Complete timecard for this week",
 	 Complete = true,
-	 Spartan = nish,
-	 Owner = "Nish",
+	 Spartan = daniel,
+	 Comments = "dolor",
+	 Owner = "Dmanu",
      SoftSkill = "Skilled",
      TechnicalSkill = "Skilled"
 
 
 
  },
+  new Tracker
+  {
+	  Week = 8,
+	  Stop = "Complete timecard for this week",
+	  Start = "Taking breaks",
+	  Complete = true,
+	  Spartan = phil,
+	  Owner = "Pthomas",
+	  SoftSkill = "Skilled",
+	  TechnicalSkill = "Skilled"
+
+
+
+  },
  new Tracker
  {
 	 Week = 1,
 	 Stop = "Complete timecard for this week",
 	 Complete = true,
-	 Spartan = peter,
-	 Owner = "Peter",
+	 Spartan = danyal,
+	 Owner = "Dsaleh",
      SoftSkill = "Partially Skilled",
      TechnicalSkill = "Partially Skilled"
  }
