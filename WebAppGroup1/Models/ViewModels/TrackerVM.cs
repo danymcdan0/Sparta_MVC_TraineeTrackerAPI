@@ -6,7 +6,8 @@ namespace WebAppGroup1.Models.ViewModels
 {
 	public class TrackerVM
 	{
-		public int Id { get; set; }
+        public string? Owner { get; set; }
+        public int Id { get; set; }
 		public int Week { get; set; }
 
 		[Display(Name = "Technical Skill [1-4]")]

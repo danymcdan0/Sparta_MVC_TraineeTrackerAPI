@@ -114,8 +114,12 @@ namespace WebAppGroup1.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
-                await _userManager.AddToRoleAsync(user, "Trainee");
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                string userName = Input.Email;
+                int index = userName.IndexOf('@');
+                userName = userName.Remove(index);
+
+                await _userManager.AddToRoleAsync(user, "Trainee");                
+                await _userStore.SetUserNameAsync(user, userName, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 

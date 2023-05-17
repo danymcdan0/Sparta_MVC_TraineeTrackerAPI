@@ -13,6 +13,9 @@
 	<thead>
 		<tr>
 			<th>
+				@Html.DisplayNameFor(model => model.Owner)
+			</th>
+			<th>
 				@Html.DisplayNameFor(model => model.Week)
 			</th>
 			<th>
@@ -31,6 +34,9 @@
 		@foreach (var item in Model)
 		{
 			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Owner)
+				</td>
 				<td>
 					@Html.DisplayFor(modelItem => item.Week)
 				</td>

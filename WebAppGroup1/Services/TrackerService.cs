@@ -35,6 +35,7 @@ namespace WebAppGroup1.Services
             {
                 var trackerToDo = _mapper.Map<Tracker>(trackerCreateVM);
                 trackerToDo.Spartan = spartan;
+				trackerToDo.Owner = spartan.UserName;
                 _context.Add(trackerToDo);
                 await _context.SaveChangesAsync();
                 return response;
@@ -209,19 +210,21 @@ namespace WebAppGroup1.Services
                 // Trainer can see all the to dos!!
                 trackers = await _context.TrackerEntries.ToListAsync();
             }
-/*
-            if (string.IsNullOrEmpty(filter))
-            {
-                response.Data = toDoItems.Select(td => _mapper.Map<ToDoVM>(td));
-                return response;
-            };*/
+            /*
+                        if (string.IsNullOrEmpty(filter))
+                        {
+                            response.Data = toDoItems.Select(td => _mapper.Map<ToDoVM>(td));
+                            return response;
+                        };*/
 
-            //trackers = await _context.TrackerEntries.Where(td => td.SpartanId == spartan.Id).ToListAsync();
-            response.Data = trackers
+			//trackers = await _context.TrackerEntries.Where(td => td.SpartanId == spartan.Id).ToListAsync();
+			response.Data = trackers
 /*                .Where(td =>
                     td.Title.Contains(filter!, StringComparison.OrdinalIgnoreCase) ||
                     (td.Description?.Contains(filter!, StringComparison.OrdinalIgnoreCase) ?? false))*/
                 .Select(t => _mapper.Map<TrackerVM>(t));
+
+            
 
             return response;
         }

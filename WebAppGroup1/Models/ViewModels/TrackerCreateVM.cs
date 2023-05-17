@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebAppGroup1.Models.ViewModels
 {
@@ -21,5 +22,8 @@ namespace WebAppGroup1.Models.ViewModels
         [Display(Name = "Soft Skill [1-4]")]
         [Range(1, 4)]
         public int SoftSkill { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
+		public string? Email { get; set; }
 	}
 }

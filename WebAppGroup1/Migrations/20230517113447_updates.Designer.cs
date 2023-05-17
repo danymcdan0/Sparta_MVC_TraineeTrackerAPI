@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAppGroup1.Data;
 
@@ -11,9 +12,11 @@ using WebAppGroup1.Data;
 namespace WebAppGroup1.Migrations
 {
     [DbContext(typeof(SpartaTrackerContext))]
-    partial class SpartaTrackerContextModelSnapshot : ModelSnapshot
+    [Migration("20230517113447_updates")]
+    partial class updates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

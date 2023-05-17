@@ -34,5 +34,7 @@ namespace WebAppGroup1.Models
         [ValidateNever]
         [ForeignKey("Spartan")]
         public string SpartanId { get; set; } = null!;
-    }
+
+		public string? Owner { get; set; }
+	}
 }

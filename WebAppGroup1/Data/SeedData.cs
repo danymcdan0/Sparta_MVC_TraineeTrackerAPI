@@ -44,19 +44,19 @@ namespace WebAppGroup1.Data
 
 			var phil = new Spartan
 			{
-				UserName = "Phil@spartaglobal.com",
+				UserName = "Phil",
 				Email = "Phil@spartaglobal.com",
 				EmailConfirmed = true
 			};
 			var nish = new Spartan
 			{
-				UserName = "Nish@spartaglobal.com",
+				UserName = "Nish",
 				Email = "Nish@spartaglobal.com",
 				EmailConfirmed = true,
 			};
 			var peter = new Spartan
 			{
-				UserName = "Peter@spartaglobal.com",
+				UserName = "Peter",
 				Email = "Peter@spartaglobal.com",
 				EmailConfirmed = true
 			};
@@ -102,28 +102,32 @@ namespace WebAppGroup1.Data
 	 Week = 1,
 	 Start = "Complete the weekly survey",
 	 Complete = false,
-	 Spartan = nish
+	 Spartan = nish,
+	 Owner = "nish"
  },
  new Tracker
  {
 	 Week = 2,
 	 Stop = "Complete timecard for this week",
 	 Complete = true,
-	 Spartan = nish
+	 Spartan = nish,
+	 Owner = "nish"
  },
  new Tracker
  {
 	 Week = 3,
 	 Stop = "Complete timecard for this week",
 	 Complete = true,
-	 Spartan = nish
+	 Spartan = nish,
+	 Owner = "nish"
  },
  new Tracker
  {
 	 Week = 4,
 	 Stop = "Complete timecard for this week",
 	 Complete = true,
-	 Spartan = nish
+	 Spartan = nish,
+	 Owner = "nish"
 
 
 
@@ -133,7 +137,8 @@ namespace WebAppGroup1.Data
 	 Week = 1,
 	 Stop = "Complete timecard for this week",
 	 Complete = true,
-	 Spartan = peter
+	 Spartan = peter,
+	 Owner = "peter"
  }
  );
 			context.SaveChanges();

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAppGroup1.Data;
 
@@ -11,9 +12,11 @@ using WebAppGroup1.Data;
 namespace WebAppGroup1.Migrations
 {
     [DbContext(typeof(SpartaTrackerContext))]
-    partial class SpartaTrackerContextModelSnapshot : ModelSnapshot
+    [Migration("20230517111903_email")]
+    partial class email
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -249,7 +252,7 @@ namespace WebAppGroup1.Migrations
                     b.Property<string>("Continue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Owner")
+                    b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SoftSkill")
