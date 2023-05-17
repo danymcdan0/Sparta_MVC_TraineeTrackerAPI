@@ -43,7 +43,33 @@ public static class Helper
 		return response;
 	}
 
-	public static ServiceResponse<TrackerVM> GetToDoItemServiceResponse()
+	public static ServiceResponse<TrackerDetailsVM> GetDetailsServiceResponse()
+	{
+		var response = new ServiceResponse<TrackerDetailsVM>();
+		response.Data = Mock.Of<TrackerDetailsVM>();
+		return response;
+	}
+	public static ServiceResponse<TrackerEditVM> GetEditDetailsServiceResponse()
+	{
+		var response = new ServiceResponse<TrackerEditVM>();
+		response.Data = Mock.Of<TrackerEditVM>();
+		return response;
+	}
+	public static ServiceResponse<MarkCompleteVM> GetMarkCompleteServiceResponse()
+	{
+		var response = new ServiceResponse<MarkCompleteVM>();
+		response.Data = Mock.Of<MarkCompleteVM>();
+		return response;
+	}
+	
+	public static ServiceResponse<TrackerCreateVM> GetCreateServiceResponse()
+	{
+		var response = new ServiceResponse<TrackerCreateVM>();
+		response.Data = Mock.Of<TrackerCreateVM>();
+		return response;
+	}
+
+	public static ServiceResponse<TrackerVM> GetServiceResponse()
 	{
 		var response = new ServiceResponse<TrackerVM>();
 		response.Data = Mock.Of<TrackerVM>();
